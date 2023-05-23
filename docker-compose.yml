@@ -1,0 +1,19 @@
+version: '3'
+services:
+  frp_server:
+    image: geektr/frp
+    environment:
+      - FRP_SERVER_ADDR=${HOST_IP}
+      - FRP_PRIVILEGE_TOKEN=${FRP_TOKEN}
+    restart: always
+    network_mode: "host"
+    volumes:
+      - ./config/frps.ini:/etc/frp/frps.ini:ro
+  frp_client:
+    image: geektr/frp
+    environment:
+      - FRP_SERVER_ADDR=${HOST_IP}
+      - FRP_PRIVILEGE_TOKEN=${FRP_TOKEN}
+    restart: always
+    volumes:
+      - ./config/frpc.ini:/etc/frp/frpc.ini:ro
